@@ -1,0 +1,17 @@
+{% if question %}
+<H1>{{question.question_text}}</H1>
+<h2>Total de votos</h2>
+    <ul>
+      {% for choice in question.choice_set.all %}
+      {% comment %} use the scrip below to pluralize  {% endcomment %}
+      {% comment %} You have {{ num_cherries }} cherr{{ num_cherries|pluralize:"y,ies" }}. {% endcomment %}
+      <li>{{choice.choise_text}} tiene {{choice.votes}}</li>
+      {% endfor %}
+        
+        
+    </ul>
+    <a href="{% url 'aplication:index' %}">Volver al inicio</a>
+{% else %}
+    <p>No surveys are avalilable</p>
+
+{% endif %}

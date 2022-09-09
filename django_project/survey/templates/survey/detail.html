@@ -1,0 +1,53 @@
+<form action="{% url 'aplication:vote' question.id %}"method ='post'>
+    {% comment %} be careful the line below is important to security propouse {% endcomment %}
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>{{question.question_text}}</h1></legend>
+        {% if error_message %}
+            <p><strong>{{error_message}}</strong></p>        
+        {% endif %}
+        {% for choice in question.choice_set.all %}
+     
+        <input 
+        type="radio"
+        name="choice"
+        {% comment %} important this will not work properly
+         in the future due to choice for loop is diferent
+         than choice.id {% endcomment %}
+        id="choice{{forloop.counter}}"
+        value="{{choice.id}}"
+        
+        >
+        <label for="choice{{choice.id}}">
+            {{choice.choise_text}}
+        </label>
+        <br>
+
+
+    
+        {% endfor %}
+    </fieldset>
+    <input type="submit" value='Votar'>
+
+</form>
+
+
+
+
+{% comment %} 
+
+
+{% if question %}
+    <h1>{{question.question_text}}</h1>
+    
+    <ul>
+    {% for unit in question.choice_set.all %}
+     
+        <li>{{unit.choise_text}}</li>
+    
+    {% endfor %}
+</ul>
+{% else %}
+    <p>No surveys are avalilable</p>
+
+{% endif %}  {% endcomment %}
